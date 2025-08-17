@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext } from 'react';
 import type { ReactNode } from 'react';
 
 export type Language = 'en' | 'ar' | 'ms' | 'fr' | 'id' | 'hi';
