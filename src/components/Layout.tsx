@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, Phone, Mail } from 'lucide-react';
 import { LanguagePicker } from './LanguagePicker';
+import { EnhancedHudaConcierge } from './EnhancedHudaConcierge';
 import { useI18n } from '@/lib/i18n';
 
 interface LayoutProps {
@@ -198,6 +199,9 @@ export function Layout({ children }: LayoutProps) {
           </div>
         </div>
       </footer>
+      
+      {/* Enhanced AI Concierge */}
+      <EnhancedHudaConcierge />
     </div>
   );
 }
