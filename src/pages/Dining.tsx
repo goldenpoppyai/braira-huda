@@ -139,7 +139,7 @@ function DiningPage() {
                       {restaurant.features.map((feature) => (
                         <div key={feature} className="flex items-center space-x-2 text-sm">
                           <Star className="h-3 w-3 text-accent" />
-                          <span>{t(feature)}</span>
+                          <span>{t(feature as any)}</span>
                         </div>
                       ))}
                     </div>

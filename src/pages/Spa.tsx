@@ -131,7 +131,7 @@ function SpaPage() {
                   <div className="space-y-2 mb-6">
                     {facility.features.map((feature) => (
                       <div key={feature} className="text-sm text-muted-foreground">
-                        • {t(feature)}
+                        • {t(feature as any)}
                       </div>
                     ))}
                   </div>
@@ -208,9 +208,9 @@ function SpaPage() {
             {amenities.map((amenity) => (
               <Card key={amenity.key} className="text-center p-6 elegant-shadow hover:luxury-shadow transition-luxury">
                 <amenity.icon className="h-12 w-12 mx-auto mb-4 text-accent" />
-                <h4 className={`font-semibold mb-2 ${dir === 'rtl' ? 'font-arabic' : ''}`}>{t(amenity.key)}</h4>
+                <h4 className={`font-semibold mb-2 ${dir === 'rtl' ? 'font-arabic' : ''}`}>{t(amenity.key as any)}</h4>
                 <p className={`text-sm text-muted-foreground ${dir === 'rtl' ? 'font-arabic' : ''}`}>
-                  {t(`${amenity.key}_desc`)}
+                  {t(`${amenity.key}_desc` as any)}
                 </p>
               </Card>
             ))}

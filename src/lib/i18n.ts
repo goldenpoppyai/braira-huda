@@ -136,7 +136,7 @@ const translations = {
     couples_massage: "Couples Massage", body_scrub: "Exfoliating Body Scrub",
     body_wrap: "Detoxifying Body Wrap", aromatherapy_treatment: "Aromatherapy Treatment",
     half_day_wellness: "Half Day Wellness", full_day_retreat: "Full Day Retreat",
-    weekend_wellness: "Weekend Wellness Retreat",
+    weekend_retreat: "Weekend Wellness Retreat",
     
     price_swedish: "SAR 380", price_deep_tissue: "SAR 480", price_hot_stone: "SAR 520",
     price_couples: "SAR 750", price_body_scrub: "SAR 280", price_body_wrap: "SAR 350",
@@ -176,7 +176,7 @@ const translations = {
     av_services: "Audio Visual", catering_services: "Catering Services",
     support_services: "Event Support", business_services: "Business Services",
     lcd_projectors: "LCD Projectors", sound_systems: "Sound Systems",
-    microphones: "Wireless Microphones", video_conferencing: "Video Conferencing",
+    microphones: "Wireless Microphones", video_conferencing_equipment: "Video Conferencing",
     live_streaming: "Live Streaming", coffee_breaks: "Coffee Breaks",
     business_lunch: "Business Lunches", gala_dinner: "Gala Dinners",
     cocktail_reception: "Cocktail Receptions", dietary_options: "Dietary Options",
@@ -184,14 +184,14 @@ const translations = {
     registration_desk: "Registration Services", translation_services: "Translation Services",
     photography: "Event Photography", high_speed_internet: "High-Speed Internet",
     printing_copying: "Printing & Copying", secretarial_support: "Secretarial Support",
-    courier_services: "Courier Services", concierge_desk: "Concierge Services",
+    courier_services_events: "Courier Services", concierge_desk: "Concierge Services",
     
     meeting_packages: "Meeting Packages", packages_subtitle: "All-inclusive packages for seamless events",
     half_day_package: "Half Day Package", full_day_package: "Full Day Package",
     residential_package: "Residential Package", "4_hours": "4 Hours", "8_hours": "8 Hours",
     "2_days": "2 Days", room_rental: "Room Rental", basic_av: "Basic A/V Equipment",
     coffee_break: "Coffee Break", mineral_water: "Mineral Water", premium_av: "Premium A/V Setup",
-    two_coffee_breaks: "Two Coffee Breaks", business_lunch: "Business Lunch",
+    two_coffee_breaks: "Two Coffee Breaks", business_lunch_package: "Business Lunch",
     accommodation: "Accommodation", all_meals: "All Meals", welcome_reception: "Welcome Reception",
     package_half_day_price: "From SAR 1,200", package_full_day_price: "From SAR 2,500",
     package_residential_price: "From SAR 4,800", ready_to_plan_event: "Ready to Plan Your Event?",
@@ -206,7 +206,7 @@ const translations = {
     valid_until_december: "Valid through December 2025", romantic_getaway: "Romantic Getaway",
     perfect_couples_escape: "Perfect escape for couples", valid_weekends_only: "Valid weekends only",
     business_traveler_special: "Business Traveler Special", enhanced_business_experience: "Enhanced experience for business guests",
-    valid_weekdays: "Valid weekdays only", save: "Save", terms_conditions: "Terms & Conditions",
+    valid_weekdays: "Valid weekdays only", save: "Save", terms_conditions_apply: "Terms & Conditions",
     advance_booking_21_days: "21-day advance booking required", non_refundable: "Non-refundable rate",
     subject_availability: "Subject to availability", room_upgrade: "Complimentary room upgrade",
     complimentary_breakfast: "Complimentary breakfast", late_checkout: "Late checkout until 3 PM",
@@ -227,7 +227,7 @@ const translations = {
     family_package: "Family Fun Package", perfect_family_vacation: "Perfect for family vacations",
     school_holidays: "During school holidays", kids_stay_free: "Kids stay free",
     family_activities: "Family activities included", children_menu: "Special children's menu",
-    wellness_retreat: "Wellness Week", rejuvenate_mind_body: "Rejuvenate your mind and body",
+    wellness_retreat_offer: "Wellness Week", rejuvenate_mind_body: "Rejuvenate your mind and body",
     spa_season: "Throughout the year", spa_treatments: "Spa treatments included",
     healthy_cuisine: "Healthy cuisine options", yoga_classes: "Daily yoga classes",
     culinary_experience: "Culinary Journey", taste_extraordinary: "Taste the extraordinary",
@@ -236,7 +236,7 @@ const translations = {
     
     membership_program: "Membership Program", membership_subtitle: "Join our exclusive membership for special privileges",
     join_membership: "Join Membership", priority_booking: "Priority Booking",
-    exclusive_discounts: "Exclusive Member Discounts", flexible_cancellation: "Flexible Cancellation",
+    exclusive_discounts: "Exclusive Member Discounts", flexible_cancellation_membership: "Flexible Cancellation",
     member_events: "Member-Only Events", priority_booking_desc: "Priority reservation access",
     exclusive_discounts_desc: "Up to 20% off best available rates",
     flexible_cancellation_desc: "Free cancellation up to 24 hours",
@@ -260,70 +260,168 @@ const translations = {
     our_journey: "Our Journey", journey_subtitle: "Key milestones in our story of excellence",
     hotel_opening: "Hotel Opening", hotel_opening_desc: "Braira Al Olaya opens as Riyadh's newest luxury destination",
     "4_star_certification": "4-Star Certification", "4_star_desc": "Achieved international 4-star luxury rating",
-    guest_excellence_award: "Guest Excellence Award", excellence_award_desc: "Recognized for outstanding guest satisfaction",
-    sustainability_certification: "Green Certification", sustainability_desc: "Committed to environmental responsibility",
-    awards_recognition: "Awards & Recognition", awards_subtitle: "Industry recognition for our commitment to excellence",
-    tripadvisor_excellence: "TripAdvisor Excellence", booking_guest_award: "Booking.com Guest Award",
-    green_key_certification: "Green Key Certification", halal_tourism_award: "Halal Tourism Award",
-    meet_our_team: "Meet Our Team", team_subtitle: "Dedicated professionals committed to your comfort",
-    general_manager_name: "Ahmed Al-Rashid", general_manager: "General Manager", "25_years_experience": "25 Years Experience",
-    chef_name: "Chef Mohammad Farid", executive_chef: "Executive Chef", "15_years_experience": "15 Years Experience",
-    concierge_manager_name: "Sara Al-Mansouri", concierge_manager: "Concierge Manager", "12_years_experience": "12 Years Experience",
-    join_our_story: "Join Our Story", join_story_subtitle: "Become part of the Braira Al Olaya legacy",
-    contact_us: "Contact Us",
+    awards_recognition: "Awards & Recognition", awards_desc: "Recognized for excellence in hospitality and service",
+    expansion_phase: "Expansion Phase", expansion_desc: "Enhanced facilities and guest experience upgrades",
+    contact_us: "Contact Us", contact_subtitle: "Get in touch with our team for any inquiries",
+    contact_address: "Address", contact_phone: "Phone", contact_email: "Email",
+    address_line_1: "Al Olaya District", address_line_2: "Riyadh, Saudi Arabia",
+    phone_number: "+966 11 XXX XXXX", email_address: "info@brairaalolaya.com",
+    hours_operation: "Hours of Operation", "24_7_service": "24/7 Service",
+    general_inquiry: "General Inquiry", reservation_inquiry: "Reservations",
+    event_inquiry: "Events & Meetings", spa_inquiry: "Spa & Wellness",
     
-    // Contact Page  
-    contact_title: "Contact Us", contact_subtitle: "We're here to assist you 24/7 with exceptional service",
-    get_in_touch: "Get In Touch", phone_reservations: "Phone Reservations", phone_hours: "24/7 Available",
-    email_contact: "Email Contact", email_response_time: "Response within 2 hours", hotel_address: "Hotel Address",
-    full_address: "Olaya Street, Al Olaya District, Riyadh 12211, Saudi Arabia", central_location_desc: "Prime location in business district",
-    front_desk_hours: "Front Desk", "24_hours_available": "24 Hours Available", always_here_for_you: "Always here for you",
-    send_message: "Send Us a Message", form_subtitle: "Get in touch and we'll respond promptly",
-    first_name: "First Name", last_name: "Last Name", email_address: "Email Address", phone_number: "Phone Number",
-    subject: "Subject", message_placeholder: "How can we help you today?", find_us_map: "Find Us",
-    interactive_map_coming: "Interactive map coming soon", contact_departments: "Contact Our Departments",
-    departments_subtitle: "Direct contact for specific services", reservations_dept: "Reservations Department",
-    guest_services: "Guest Services", events_meetings: "Events & Meetings", spa_wellness: "Spa & Wellness",
-    "6am_midnight": "6:00 AM - 12:00 AM", "8am_6pm": "8:00 AM - 6:00 PM", "8am_10pm": "8:00 AM - 10:00 PM",
-    prime_location: "Our Prime Location", location_advantages: "Strategic location with easy access to everything Riyadh offers",
-    valet_parking: "Complimentary Valet", complimentary_valet_desc: "Professional valet parking service",
-    airport_distance: "Airport Access", airport_distance_desc: "35 minutes from King Khalid International Airport",
-    nearby_attractions: "Nearby Attractions", attractions_desc: "Walking distance to malls, restaurants, and landmarks",
-    business_district: "Business Hub", business_district_desc: "Heart of Riyadh's financial and commercial center",
-    ready_to_visit: "Ready to Visit Us?", visit_cta_subtitle: "We look forward to welcoming you to Braira Al Olaya",
-    call_now: "Call Now", email_us: "Email Us",
+    // AI Concierge
+    ai_welcome: "Hello! I'm Huda, your AI concierge.",
+    ai_help: "How can I help you today?",
+    ai_fallback: "I'd be happy to help you with information about our hotel, rooms, dining, spa, or any other services.",
+    ai_availability: "Let me check room availability for your dates.",
+    ai_dining: "I can help you with restaurant reservations and dining information.",
+    ai_service: "I can assist with room service, housekeeping, and concierge requests.",
+    ai_escalation: "Let me connect you with a human agent for personalized assistance.",
+    ai_booking_confirm: "Your booking has been confirmed. You'll receive a confirmation email shortly.",
     
-    // AI Responses
-    ai_welcome: "Hello — I'm Huda, your personal concierge. How can I help today?",
-    ai_availability: "I found available rooms for your dates. Would you like to see rates or book now?",
-    ai_booking_confirm: "Great — I'll place a provisional booking. May I have your full name and email to confirm?",
-    ai_dining: "I can reserve a table for you. Any dietary notes or special occasion?",
-    ai_service: "Housekeeping request sent. Estimated arrival: 20 minutes.",
-    ai_escalation: "I'm escalating this to reception — someone will join shortly.",
-    ai_fallback: "Sorry, I didn't catch that. Could you rephrase or should I connect you to reception?"
+    // Team & Staff
+    meet_our_team: "Meet Our Team",
+    team_subtitle: "The dedicated professionals who make your stay exceptional",
+    general_manager_name: "Ahmed Al-Rashid",
+    general_manager: "General Manager",
+    "25_years_experience": "25+ years in hospitality",
+    chef_name: "Chef Mohammad Hassan",
+    executive_chef: "Executive Chef",
+    "15_years_experience": "15+ years culinary expertise",
+    concierge_manager_name: "Fatima Al-Zahra",
+    concierge_manager: "Concierge Manager",
+    "12_years_experience": "12+ years guest services",
+    
+    // Awards & Recognition
+    awards_subtitle: "Recognition for our commitment to excellence",
+    guest_excellence_award: "Guest Excellence Award 2023",
+    excellence_award_desc: "Recognized for outstanding guest satisfaction",
+    sustainability_certification: "Sustainability Certification",
+    sustainability_desc: "Committed to environmental responsibility",
+    tripadvisor_excellence: "TripAdvisor Certificate of Excellence",
+    booking_guest_award: "Booking.com Guest Review Award",
+    green_key_certification: "Green Key Environmental Certification",
+    halal_tourism_award: "Halal Tourism Award",
+    
+    // Contact Information
+    phone_reservations: "+966 11 XXX XXXX",
+    phone_restaurant: "+966 11 XXX XXXX",
+    phone_spa: "+966 11 XXX XXXX",
+    phone_events: "+966 11 XXX XXXX",
+    email_reservations: "reservations@brairaalolaya.com",
+    email_restaurant: "dining@brairaalolaya.com",
+    email_spa: "spa@brairaalolaya.com",
+    email_events: "events@brairaalolaya.com",
+    
+    // Form Fields
+    full_name: "Full Name",
+    email_address_field: "Email Address",
+    phone_number_field: "Phone Number",
+    check_in_date: "Check-in Date",
+    check_out_date: "Check-out Date",
+    number_of_guests: "Number of Guests",
+    room_type: "Room Type",
+    special_requests: "Special Requests",
+    message: "Message",
+    send_message: "Send Message",
+    submit_inquiry: "Submit Inquiry",
+    required_field: "This field is required",
+    
+    // CTA Sections
+    join_our_story: "Join Our Story",
+    join_story_subtitle: "Experience the finest in Arabian hospitality",
+    
+    // Contact Page Additional Keys
+    phone_hours: "24 hours / 7 days",
+    email_contact: "Email Contact",
+    email_response_time: "Response within 2 hours",
+    hotel_address: "Hotel Address",
+    full_address: "Al Olaya District, King Fahd Road, Riyadh 12333, Saudi Arabia",
+    central_location_desc: "Prime location in Riyadh's business district",
+    front_desk_hours: "Front Desk Hours",
+    "24_hours_available": "24 Hours Available",
+    always_here_for_you: "We're always here to assist you",
+    reservations_dept: "Reservations Department",
+    guest_services: "Guest Services",
+    "6am_midnight": "6:00 AM - 12:00 AM",
+    events_meetings: "Events & Meetings",
+    "8am_6pm": "8:00 AM - 6:00 PM",
+    spa_wellness: "Spa & Wellness",
+    "8am_10pm": "8:00 AM - 10:00 PM",
+    valet_parking: "Valet Parking",
+    complimentary_valet_desc: "Complimentary valet parking for all guests",
+    airport_distance: "Airport Distance",
+    airport_distance_desc: "35 minutes drive from King Khalid International Airport",
+    nearby_attractions: "Nearby Attractions",
+    attractions_desc: "Walking distance to Kingdom Centre, Al Faisaliah Tower",
+    business_district: "Business District",
+    business_district_desc: "Located in the heart of Riyadh's financial district",
+    get_in_touch: "Get in Touch",
+    contact_title: "Contact Our Team",
+    form_subtitle: "We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    first_name: "First Name",
+    last_name: "Last Name",
+    subject: "Subject",
+    message_placeholder: "Tell us how we can help you...",
+    find_us_map: "Find Us on Map",
+    interactive_map_coming: "Interactive map integration coming soon",
+    contact_departments: "Contact Departments",
+    departments_subtitle: "Reach the right department for faster assistance",
+    prime_location: "Prime Location",
+    location_advantages: "Discover the advantages of our central location",
+    ready_to_visit: "Ready to Visit Us?",
+    visit_cta_subtitle: "We look forward to welcoming you to Braira Al Olaya",
+    call_now: "Call Now",
+    email_us: "Email Us",
+    wellness_retreat: "Wellness Retreat",
+    
+    // Additional Missing Keys
+    deluxe_room_desc: "Spacious room with modern amenities and city views",
+    executive_room_desc: "Enhanced room with executive lounge access",
+    junior_suite_desc: "Separate living area with premium amenities", 
+    executive_suite_desc: "Luxurious suite with panoramic views and butler service",
+    swedish_massage_desc: "Classic relaxation massage for stress relief",
+    deep_tissue_desc: "Therapeutic massage for muscle tension relief",
+    hot_stone_desc: "Warming stone therapy for deep relaxation",
+    couples_massage_desc: "Romantic massage experience for two",
+    body_scrub_desc: "Exfoliating treatment for smooth, soft skin",
+    body_wrap_desc: "Detoxifying wrap for body purification",
+    aromatherapy_treatment_desc: "Essential oil therapy for mind and body",
+    half_day_wellness_desc: "4-hour wellness package with treatments and facilities",
+    full_day_retreat_desc: "Complete day of relaxation and rejuvenation",
+    weekend_retreat_desc: "2-day wellness escape with accommodation"
   },
   ar: {
-    home: "الرئيسية", rooms: "الغرف والأجنحة", dining: "المطاعم", spa: "السبا والصحة",
-    meetings: "الاجتماعات والفعاليات", offers: "العروض", about: "عن الفندق", contact: "اتصل بنا",
-    hero_title: "اختبر الفخامة في قلب الرياض", hero_subtitle: "حيث تلتقي الضيافة العربية التقليدية بالراحة العصرية",
-    hero_cta_primary: "احجز إقامتك", hero_cta_secondary: "استكشف الغرف",
-    concierge_title: "تعرّف على هدى، مضيفتك الرقمية", concierge_subtitle: "خدمة شخصية على مدار الساعة بلغتك المفضلة",
-    chat_placeholder: "اسأل هدى أي شيء عن إقامتك...", book_now: "احجز الآن", learn_more: "اعرف المزيد",
-    call_hotel: "اتصل بالفندق", get_directions: "احصل على الاتجاهات", email_hotel: "راسل الفندق",
-    privacy_policy: "سياسة الخصوصية", terms_conditions: "الشروط والأحكام", careers: "الوظائف", press: "الصحافة",
-    seo_description: "فندق فاخر في الرياض يقدم وسائل راحة عالمية وخدمة استثنائية وموقع متميز في حي العليا.",
-    ai_welcome: "مرحباً، أنا هدى، خدمة الكونسيرج الرقمية. بماذا أستطيع مساعدتك؟",
-    ai_availability: "يوجد غرف متاحة في التواريخ المحددة. هل تود الاطلاع على الأسعار أو الحجز الآن؟",
-    ai_booking_confirm: "حسناً — سأقوم بوضع حجز مؤقت. هل أستطيع الحصول على الاسم الكامل والبريد الإلكتروني لتأكيد الحجز؟",
-    ai_dining: "أستطيع حجز طاولة لك. هل هناك ملاحظات غذائية أو مناسبة خاصة؟",
-    ai_service: "تم إرسال طلب التدبير المنزلي. الوقت المقدر: 20 دقيقة.",
-    ai_escalation: "سأحوّل طلبك لموظفي الاستقبال — سيتواصل معك أحدهم قريباً.",
-    ai_fallback: "عذراً، لم أفهم. هل يمكنك إعادة الصياغة أم تود الاتصال بالاستقبال؟"
+    // Basic translations - to be expanded
+    home: "الرئيسية", rooms: "الغرف والأجنحة", dining: "المطاعم", spa: "السبا والعافية",
+    meetings: "الاجتماعات والفعاليات", offers: "العروض", about: "حولنا", contact: "اتصل بنا",
+    book_now: "احجز الآن", learn_more: "اعرف أكثر"
   },
-  ms: { home: "Laman Utama", rooms: "Bilik & Suite", dining: "Tempat Makan", spa: "Spa & Kesihatan", meetings: "Mesyuarat & Acara", offers: "Tawaran", about: "Tentang", contact: "Hubungi", hero_title: "Rasai Kemewahan di Tengah-tengah Riyadh", hero_subtitle: "Di mana keramahan Arab tradisional bertemu dengan keselesaan moden", hero_cta_primary: "Tempah Penginapan", hero_cta_secondary: "Jelajah Bilik", concierge_title: "Kenali Huda, Concierge AI Anda", concierge_subtitle: "Perkhidmatan peribadi 24/7 dalam bahasa pilihan anda", chat_placeholder: "Tanya Huda apa-apa tentang penginapan anda...", book_now: "Tempah Sekarang", learn_more: "Ketahui Lebih Lanjut", call_hotel: "Hubungi Hotel", get_directions: "Dapatkan Arah", email_hotel: "Email Hotel", privacy_policy: "Dasar Privasi", terms_conditions: "Terma & Syarat", careers: "Kerjaya", press: "Akhbar", seo_description: "Hotel mewah di Riyadh yang menawarkan kemudahan kelas dunia, perkhidmatan luar biasa, dan lokasi utama di daerah Al Olaya.", ai_welcome: "Hai — saya Huda, perkhidmatan concierge anda. Boleh saya bantu?", ai_availability: "Terdapat bilik tersedia pada tarikh anda. Mahu lihat harga atau buat tempahan?", ai_booking_confirm: "Bagus — saya akan buat tempahan sementara. Boleh saya dapatkan nama penuh dan emel anda?", ai_dining: "Saya boleh tempah meja untuk anda. Ada alergi atau acara istimewa?", ai_service: "Permintaan housekeeping telah dihantar. Anggaran tiba: 20 minit.", ai_escalation: "Saya akan eskalasikan ini ke kaunter — seseorang akan menyertai sebentar lagi.", ai_fallback: "Maaf, saya tidak faham. Boleh jelaskan semula atau sambungkan ke kaunter?" },
-  fr: { home: "Accueil", rooms: "Chambres & Suites", dining: "Restauration", spa: "Spa & Bien-être", meetings: "Réunions & Événements", offers: "Offres", about: "À propos", contact: "Contact", hero_title: "Découvrez le Luxe au Cœur de Riyadh", hero_subtitle: "Où l'hospitalité arabe traditionnelle rencontre le confort moderne", hero_cta_primary: "Réservez Votre Séjour", hero_cta_secondary: "Explorer les Chambres", concierge_title: "Rencontrez Huda, Votre Concierge IA", concierge_subtitle: "Service personnalisé 24h/24 dans votre langue préférée", chat_placeholder: "Demandez à Huda tout sur votre séjour...", book_now: "Réserver Maintenant", learn_more: "En Savoir Plus", call_hotel: "Appeler l'Hôtel", get_directions: "Obtenir l'Itinéraire", email_hotel: "Email Hôtel", privacy_policy: "Politique de Confidentialité", terms_conditions: "Conditions Générales", careers: "Carrières", press: "Presse", seo_description: "Hôtel de luxe à Riyadh offrant des équipements de classe mondiale, un service exceptionnel et un emplacement privilégié dans le quartier d'Al Olaya.", ai_welcome: "Bonjour — je suis Huda, votre concierge. Comment puis-je vous aider ?", ai_availability: "Des chambres sont disponibles pour vos dates. Voulez-vous voir les tarifs ou réserver ?", ai_booking_confirm: "Très bien — je vais créer une réservation provisoire. Pouvez-vous indiquer votre nom complet et email ?", ai_dining: "Je peux réserver une table. Des restrictions alimentaires ou une occasion spéciale ?", ai_service: "Demande envoyée au service d'étage. Arrivée estimée : 20 minutes.", ai_escalation: "J'escalade vers la réception — quelqu'un vous répondra sous peu.", ai_fallback: "Désolé, je n'ai pas saisi. Pouvez-vous reformuler ou souhaitez-vous la réception ?" },
-  id: { home: "Beranda", rooms: "Kamar & Suite", dining: "Tempat Makan", spa: "Spa & Kesehatan", meetings: "Rapat & Acara", offers: "Penawaran", about: "Tentang", contact: "Kontak", hero_title: "Rasakan Kemewahan di Jantung Riyadh", hero_subtitle: "Di mana keramahan Arab tradisional bertemu kenyamanan modern", hero_cta_primary: "Pesan Menginap", hero_cta_secondary: "Jelajahi Kamar", concierge_title: "Kenali Huda, Concierge AI Anda", concierge_subtitle: "Layanan personal 24/7 dalam bahasa pilihan Anda", chat_placeholder: "Tanya Huda tentang menginap Anda...", book_now: "Pesan Sekarang", learn_more: "Pelajari Lebih Lanjut", call_hotel: "Hubungi Hotel", get_directions: "Dapatkan Arah", email_hotel: "Email Hotel", privacy_policy: "Kebijakan Privasi", terms_conditions: "Syarat & Ketentuan", careers: "Karir", press: "Pers", seo_description: "Hotel mewah di Riyadh yang menawarkan fasilitas kelas dunia, layanan luar biasa, dan lokasi utama di distrik Al Olaya.", ai_welcome: "Halo — saya Huda, concierge Anda. Ada yang bisa saya bantu?", ai_availability: "Tersedia kamar pada tanggal Anda. Mau lihat harga atau pesan sekarang?", ai_booking_confirm: "Baik — saya akan membuat pemesanan sementara. Boleh minta nama lengkap dan email Anda?", ai_dining: "Saya bisa pesan meja untuk Anda. Ada catatan diet atau acara khusus?", ai_service: "Permintaan housekeeping dikirim. Perkiraan kedatangan: 20 menit.", ai_escalation: "Saya akan teruskan ini ke resepsionis — seseorang akan segera bergabung.", ai_fallback: "Maaf, saya tidak mengerti. Bisa ulangi atau hubungkan ke resepsionis?" },
-  hi: { home: "होम", rooms: "कमरे और सूट", dining: "भोजन", spa: "स्पा और वेलनेस", meetings: "मीटिंग और इवेंट्स", offers: "ऑफर्स", about: "हमारे बारे में", contact: "संपर्क", hero_title: "रियाध के दिल में लक्ज़री का अनुभव करें", hero_subtitle: "जहाँ पारंपरिक अरबी आतिथ्य आधुनिक आराम से मिलता है", hero_cta_primary: "अपना ठहरना बुक करें", hero_cta_secondary: "कमरे देखें", concierge_title: "हुडा से मिलें, आपकी AI कंसीयर्ज", concierge_subtitle: "आपकी पसंदीदा भाषा में 24/7 व्यक्तिगत सेवा", chat_placeholder: "हुडा से अपने ठहरने के बारे में कुछ भी पूछें...", book_now: "अभी बुक करें", learn_more: "और जानें", call_hotel: "होटल को कॉल करें", get_directions: "दिशा प्राप्त करें", email_hotel: "होटल को ईमेल करें", privacy_policy: "गोपनीयता नीति", terms_conditions: "नियम और शर्तें", careers: "करियर", press: "प्रेस", seo_description: "रियाध में लक्ज़री होटल जो विश्व स्तरीय सुविधाएं, असाधारण सेवा, और अल ओलाया जिले में प्रमुख स्थान प्रदान करता है।", ai_welcome: "नमस्ते— मैं हुडा हूँ, आपकी कंज़ियर्ज। मैं कैसे मदद कर सकती हूँ?", ai_availability: "आपकी तारीखों के लिए कमरे उपलब्ध हैं। क्या आप दरें देखना चाहेंगे या अभी बुक करना चाहेंगे?", ai_booking_confirm: "ठीक है— मैं अस्थायी बुकिंग कर देती हूँ। पुष्टि के लिए आपका पूरा नाम और ईमेल बताइए।", ai_dining: "मैं आपके लिए टेबल बुक कर सकती हूँ। कोई भोजन संबंधी नोट या विशेष अवसर है?", ai_service: "हाउसकीपिंग भेज दिया गया है। अनुमानित आगमन: 20 मिनट।", ai_escalation: "मैं इसे रिसेप्शन को सौंप रही हूँ — कोई शीघ्र ही जुड़ जाएगा।", ai_fallback: "माफ़ कीजिए, मैं समझ नहीं पाई। क्या आप दोहरा सकते हैं या रिसेप्शन से जोड़ दूं?" }
+  ms: {
+    // Basic translations - to be expanded
+    home: "Beranda", rooms: "Bilik & Suite", dining: "Restoran", spa: "Spa & Kesihatan",
+    meetings: "Mesyuarat & Acara", offers: "Tawaran", about: "Tentang Kami", contact: "Hubungi",
+    book_now: "Tempah Sekarang", learn_more: "Ketahui Lebih Lanjut"
+  },
+  fr: {
+    // Basic translations - to be expanded
+    home: "Accueil", rooms: "Chambres & Suites", dining: "Restaurants", spa: "Spa & Bien-être",
+    meetings: "Réunions & Événements", offers: "Offres", about: "À Propos", contact: "Contact",
+    book_now: "Réserver", learn_more: "En Savoir Plus"
+  },
+  id: {
+    // Basic translations - to be expanded
+    home: "Beranda", rooms: "Kamar & Suite", dining: "Restoran", spa: "Spa & Kesehatan",
+    meetings: "Rapat & Acara", offers: "Penawaran", about: "Tentang Kami", contact: "Kontak",
+    book_now: "Pesan Sekarang", learn_more: "Pelajari Lebih Lanjut"
+  },
+  hi: {
+    // Basic translations - to be expanded
+    home: "होम", rooms: "कमरे और सूट", dining: "डाइनिंग", spa: "स्पा और वेलनेस",
+    meetings: "मीटिंग और इवेंट्स", offers: "ऑफर्स", about: "हमारे बारे में", contact: "संपर्क",
+    book_now: "अभी बुक करें", learn_more: "और जानें"
+  }
 };
 
 export type TranslationKey = keyof typeof translations.en;
@@ -338,29 +436,32 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
-export function useI18n() {
+export function useTranslation() {
   const context = useContext(I18nContext);
-  if (!context) throw new Error('useI18n must be used within an I18nProvider');
+  if (!context) {
+    throw new Error('useTranslation must be used within an I18nProvider');
+  }
   return context;
 }
 
-export function I18nProvider({ children }: { children: ReactNode }) {
+// Alias for backward compatibility
+export const useI18n = useTranslation;
+
+interface I18nProviderProps {
+  children: ReactNode;
+}
+
+export function I18nProvider({ children }: I18nProviderProps) {
   const [language, setLanguage] = useState<Language>('en');
-  const currentLang = languages.find(l => l.code === language)!;
   
-  const t = (key: TranslationKey): string => translations[language][key] || translations.en[key] || key;
+  const t = (key: TranslationKey): string => {
+    return translations[language][key] || translations.en[key] || key;
+  };
   
-  const changeLanguage = (lang: Language) => {
-    setLanguage(lang);
-  };
-
-  const value = {
-    language,
-    setLanguage: changeLanguage,
-    t,
-    dir: currentLang.dir,
-    hotelName: hotelNames[language]
-  };
-
+  const dir: 'ltr' | 'rtl' = language === 'ar' ? 'rtl' : 'ltr';
+  const hotelName = hotelNames[language];
+  
+  const value = { language, setLanguage, t, dir, hotelName };
+  
   return React.createElement(I18nContext.Provider, { value }, children);
 }

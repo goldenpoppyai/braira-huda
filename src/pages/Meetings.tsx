@@ -177,7 +177,7 @@ function MeetingsPage() {
                     <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground">
                       {Object.entries(space.capacity).map(([config, count]) => (
                         <div key={config} className="flex justify-between">
-                          <span>{t(config)}:</span>
+                          <span>{t(config as any)}:</span>
                           <span>{count} {typeof count === 'number' ? t('guests') : ''}</span>
                         </div>
                       ))}
@@ -189,7 +189,7 @@ function MeetingsPage() {
                     <div className="grid grid-cols-1 gap-1">
                       {space.features.map((feature) => (
                         <div key={feature} className="text-sm text-muted-foreground">
-                          • {t(feature)}
+                          • {t(feature as any)}
                         </div>
                       ))}
                     </div>

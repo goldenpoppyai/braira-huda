@@ -112,7 +112,7 @@ function RoomsPage() {
                   <div className="grid grid-cols-2 gap-2 mb-6">
                     {room.features.slice(0, 6).map((feature) => (
                       <div key={feature} className="text-sm text-muted-foreground">
-                        • {t(feature)}
+                        • {t(feature as any)}
                       </div>
                     ))}
                   </div>
@@ -148,8 +148,8 @@ function RoomsPage() {
             {amenities.map((amenity) => (
               <Card key={amenity.key} className="text-center p-6 elegant-shadow hover:luxury-shadow transition-luxury">
                 <amenity.icon className="h-12 w-12 mx-auto mb-4 text-accent" />
-                <h4 className="font-semibold mb-2">{t(amenity.key)}</h4>
-                <p className="text-sm text-muted-foreground">{t(`${amenity.key}_desc`)}</p>
+                <h4 className="font-semibold mb-2">{t(amenity.key as any)}</h4>
+                <p className="text-sm text-muted-foreground">{t(`${amenity.key}_desc` as any)}</p>
               </Card>
             ))}
           </div>
