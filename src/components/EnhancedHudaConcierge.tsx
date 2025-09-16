@@ -1,13 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { MessageCircle, Send, X, RotateCcw, Download, BarChart3, User, Bot } from 'lucide-react';
+import { MessageCircle, Send, X, RotateCcw, Download, BarChart3, User, Bot, Brain, Zap } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
 import { VoiceInterface } from './VoiceInterface';
+import { SmartInputField } from './SmartInputField';
+import { ConversationAnalytics } from './ConversationAnalytics';
 import { conversationFlow, type Message, type ConversationState } from '@/lib/conversationFlow';
+import { aiLearningEngine } from '@/lib/aiLearning';
 
 interface ConversationAnalytics {
   totalMessages: number;
@@ -36,6 +38,7 @@ export function EnhancedHudaConcierge() {
     languageUsage: {}
   });
   const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showLearningInsights, setShowLearningInsights] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -95,6 +98,18 @@ export function EnhancedHudaConcierge() {
     // Process message through conversation flow
     try {
       const response = conversationFlow.processMessage(inputMessage.trim());
+      const state = conversationFlow.getState();
+      
+      // Learn from this interaction
+      aiLearningEngine.learnFromInteraction(
+        inputMessage.trim(),
+        state.currentIntent,
+        0.8, // Default confidence
+        language
+      );
+      
+      // Enhance response with AI insights
+      const enhancedResponse = aiLearningEngine.enhanceResponse(response, state, language);
       
       // Simulate typing delay
       setTimeout(() => {
@@ -366,24 +381,16 @@ export function EnhancedHudaConcierge() {
               isSpeaking={isSpeaking}
             />
             
-            <div className="flex space-x-2 mt-2">
-              <Input
-                ref={inputRef}
-                value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder={t('chat_placeholder')}
-                className="flex-1"
-                disabled={isTyping}
-              />
-              <Button
-                onClick={handleSendMessage}
-                disabled={!inputMessage.trim() || isTyping}
-                size="sm"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </div>
+            {/* Smart Input Field with AI Features */}
+            <SmartInputField
+              value={inputMessage}
+              onChange={setInputMessage}
+              onSend={handleSendMessage}
+              onKeyPress={handleKeyPress}
+              conversationHistory={messages}
+              disabled={isTyping}
+              placeholder={t('chat_placeholder')}
+            />
             
             {/* Quick Actions */}
             <div className="flex flex-wrap gap-2 mt-3">
