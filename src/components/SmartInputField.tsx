@@ -161,7 +161,7 @@ export function SmartInputField({
               value={value}
               onChange={(e) => onChange(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={placeholder || (t as any)('type_message')}
+              placeholder={placeholder || 'Type your message...'}
               disabled={disabled}
               className="pr-4 transition-smooth focus:ring-2 focus:ring-accent/20"
               dir={language === 'ar' ? 'rtl' : 'ltr'}
@@ -220,7 +220,7 @@ export function SmartInputField({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => onChange((t as any)('book_room_quick'))}
+              onClick={() => onChange('I would like to book a room')}
               className="h-7 text-xs"
             >
               {t('book_room')}
@@ -228,7 +228,7 @@ export function SmartInputField({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => onChange((t as any)('dining_inquiry_quick'))}
+              onClick={() => onChange('Tell me about your restaurants')}
               className="h-7 text-xs"
             >
               {t('dining')}
@@ -236,7 +236,7 @@ export function SmartInputField({
             <Button
               variant="outline"
               size="sm"
-              onClick={() => onChange((t as any)('spa_services_quick'))}
+              onClick={() => onChange('What spa services do you offer?')}
               className="h-7 text-xs"
             >
               {t('spa')}

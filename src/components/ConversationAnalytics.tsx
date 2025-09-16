@@ -79,9 +79,9 @@ export function ConversationAnalytics() {
 
   const getTimeSlotName = (slot: string): string => {
     const names: Record<string, string> = {
-      morning: (t as any)('morning') || 'Morning',
-      afternoon: (t as any)('afternoon') || 'Afternoon',
-      evening: (t as any)('evening') || 'Evening'
+      morning: 'Morning',
+      afternoon: 'Afternoon',
+      evening: 'Evening'
     };
     return names[slot] || slot;
   };
@@ -92,7 +92,7 @@ export function ConversationAnalytics() {
         <CardContent className="p-6">
           <div className="flex items-center justify-center space-x-2">
             <RefreshCw className="h-5 w-5 animate-spin" />
-            <span>{(t as any)('loading_analytics') || 'Loading analytics...'}</span>
+            <span>Loading analytics...</span>
           </div>
         </CardContent>
       </Card>
@@ -104,7 +104,7 @@ export function ConversationAnalytics() {
       <Card className="w-full">
         <CardContent className="p-6 text-center">
           <Brain className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-          <p className="text-muted-foreground">{(t as any)('no_analytics') || 'No analytics data available'}</p>
+          <p className="text-muted-foreground">No analytics data available</p>
         </CardContent>
       </Card>
     );
@@ -120,7 +120,7 @@ export function ConversationAnalytics() {
               <Brain className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{(t as any)('learned_patterns') || 'Learned Patterns'}</p>
+              <p className="text-sm text-muted-foreground">Learned Patterns</p>
               <p className="text-2xl font-bold">{analytics.totalPatterns}</p>
             </div>
           </div>
@@ -132,7 +132,7 @@ export function ConversationAnalytics() {
               <Target className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{(t as any)('avg_confidence') || 'Avg Confidence'}</p>
+              <p className="text-sm text-muted-foreground">Avg Confidence</p>
               <p className="text-2xl font-bold">{(analytics.confidenceMetrics.average * 100).toFixed(1)}%</p>
             </div>
           </div>
@@ -144,7 +144,7 @@ export function ConversationAnalytics() {
               <TrendingUp className="h-5 w-5 text-secondary-foreground" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{(t as any)('weekly_growth') || 'Weekly Growth'}</p>
+              <p className="text-sm text-muted-foreground">Weekly Growth</p>
               <p className="text-2xl font-bold">+{analytics.learningTrends.weeklyGrowth}</p>
             </div>
           </div>
@@ -156,7 +156,7 @@ export function ConversationAnalytics() {
               <Star className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">{(t as any)('satisfaction') || 'Satisfaction'}</p>
+              <p className="text-sm text-muted-foreground">Satisfaction</p>
               <p className="text-2xl font-bold">{analytics.userBehavior.satisfactionRating.toFixed(1)}/5</p>
             </div>
           </div>
@@ -169,7 +169,7 @@ export function ConversationAnalytics() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <MessageSquare className="h-5 w-5" />
-              <span>{(t as any)('top_intents') || 'Top Intents'}</span>
+              <span>Top Intents</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -193,7 +193,7 @@ export function ConversationAnalytics() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Languages className="h-5 w-5" />
-              <span>{(t as any)('language_usage') || 'Language Usage'}</span>
+              <span>Language Usage</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -217,7 +217,7 @@ export function ConversationAnalytics() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Clock className="h-5 w-5" />
-              <span>{(t as any)('time_preferences') || 'Time Preferences'}</span>
+              <span>Time Preferences</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -241,13 +241,13 @@ export function ConversationAnalytics() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <BarChart3 className="h-5 w-5" />
-              <span>{(t as any)('confidence_metrics') || 'Confidence Metrics'}</span>
+              <span>Confidence Metrics</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">{t('average') || 'Average'}</span>
+                <span className="text-sm text-muted-foreground">Average</span>
                 <span className="font-medium">{(analytics.confidenceMetrics.average * 100).toFixed(1)}%</span>
               </div>
               <Progress value={analytics.confidenceMetrics.average * 100} className="h-2" />
@@ -256,11 +256,11 @@ export function ConversationAnalytics() {
               
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <p className="text-muted-foreground">{(t as any)('minimum') || 'Minimum'}</p>
+                  <p className="text-muted-foreground">Minimum</p>
                   <p className="font-medium">{(analytics.confidenceMetrics.min * 100).toFixed(1)}%</p>
                 </div>
                 <div>
-                  <p className="text-muted-foreground">{(t as any)('maximum') || 'Maximum'}</p>
+                  <p className="text-muted-foreground">Maximum</p>
                   <p className="font-medium">{(analytics.confidenceMetrics.max * 100).toFixed(1)}%</p>
                 </div>
               </div>
@@ -275,7 +275,7 @@ export function ConversationAnalytics() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <TrendingUp className="h-5 w-5" />
-              <span>{(t as any)('trending_intents') || 'Trending Intents'}</span>
+              <span>Trending Intents</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -302,7 +302,7 @@ export function ConversationAnalytics() {
           className="flex items-center space-x-2"
         >
           <RefreshCw className="h-4 w-4" />
-          <span>{(t as any)('refresh_analytics') || 'Refresh Analytics'}</span>
+          <span>Refresh Analytics</span>
         </Button>
       </div>
     </div>
