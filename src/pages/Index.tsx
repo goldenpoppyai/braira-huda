@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, Users, MapPin, Clock, Wifi, Car, Utensils, Dumbbell } from 'lucide-react';
 import { Layout } from '@/components/Layout';
-import { HudaConcierge } from '@/components/HudaConcierge';
+import AdvancedConcierge from '@/components/AdvancedConcierge';
 import { I18nProvider, useI18n } from '@/lib/i18n';
 import heroImage from '@/assets/braira-hero.jpg';
 
@@ -186,7 +186,7 @@ function HomePage() {
       </section>
 
       {/* AI Concierge Widget */}
-      <HudaConcierge />
+      <AdvancedConcierge />
     </Layout>
   );
 }
