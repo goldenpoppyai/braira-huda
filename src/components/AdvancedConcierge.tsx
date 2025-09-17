@@ -51,6 +51,7 @@ interface SuggestionChip {
 }
 
 export default function AdvancedConcierge() {
+  console.log('AdvancedConcierge component mounting...');
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
