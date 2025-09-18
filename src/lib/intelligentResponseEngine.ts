@@ -324,7 +324,7 @@ export class IntelligentResponseEngine {
     // Learn from this interaction
     this.learnFromInteraction(message, intent);
     
-    // Generate contextual response
+    // Generate contextual response with enhanced personality
     const response = await this.generateContextualResponse(message, intent);
     
     // Suggest actions based on intent and context
@@ -358,35 +358,42 @@ export class IntelligentResponseEngine {
     
     const greeting = Math.random() < 0.3 ? greetings[style] : '';
     
-    // Intent-based responses
+    // Enhanced personalized responses
+    const userPrefs = this.memory.preferences;
+    const hasHistory = this.memory.conversations.length > 0;
+    
     const responses: Record<string, string[]> = {
+      greeting: [
+        hasHistory && userName ? `Welcome back, ${userName}! I remember you prefer ${userPrefs.roomPreferences.type || 'luxury'} accommodations.` : "Hello! I'm Huda, your intelligent AI concierge with learning capabilities.",
+        hasHistory ? "Great to see you again! I've learned from our previous conversations to serve you better." : "Welcome! I adapt to your preferences and remember our conversations to provide personalized assistance."
+      ],
       book_room: [
-        "I'd be happy to help you book a room. Let me show you our available options.",
-        "Perfect! I'll help you find the ideal room for your stay."
+        userPrefs.roomPreferences.type ? `Based on your preference for ${userPrefs.roomPreferences.type} rooms, I recommend our premium suites with stunning city views.` : "I'll help you find the perfect room! Our 179 rooms and suites offer exceptional comfort starting from SAR 450 per night.",
+        hasHistory ? "I remember your room preferences and will prioritize options that match your style and comfort needs." : "Let me showcase our finest accommodations with luxury amenities and personalized service."
       ],
       dining_inquiry: [
-        "Our restaurants offer exceptional dining experiences. Let me share the details.",
-        "I'll help you discover our culinary offerings and make reservations."
+        "Our award-winning Al Diwan Restaurant offers international cuisine, while Majlis Coffee Lounge serves traditional Arabic coffee in an authentic setting.",
+        userPrefs.diningPreferences.cuisine.length > 0 ? `I recall you enjoy ${userPrefs.diningPreferences.cuisine[0]} cuisine - let me suggest perfect dining options for you.` : "From gourmet international dishes to authentic local flavors, our restaurants cater to every palate with 24/7 service available."
       ],
       spa_booking: [
-        "Our spa offers rejuvenating treatments. I'll help you book the perfect wellness experience.",
-        "Let me help you unwind with our luxurious spa services."
+        "Our world-class spa offers rejuvenating treatments in a tranquil oasis, with expert therapists and premium wellness experiences starting from SAR 280.",
+        userPrefs.spaPreferences.treatmentTypes.length > 0 ? `Perfect! I remember you enjoy ${userPrefs.spaPreferences.treatmentTypes[0]} treatments - I'll prioritize those options.` : "Let me help you discover our holistic wellness journey with personalized treatments designed for ultimate relaxation."
       ],
       hotel_info: [
-        "I'm here to help with any hotel information you need.",
-        "I'll provide you with all the details about our facilities and services."
+        hasHistory ? "I'm here with all the hotel details you need, plus I can reference your previous inquiries to provide more relevant information." : "Braira Al Olaya offers luxury accommodations in Riyadh's business district with world-class amenities and personalized service.",
+        "Our 5-star hotel features premium facilities, exceptional dining, spa services, and meeting spaces - let me share specific details that interest you most."
       ],
       meeting_events: [
-        "Our event spaces are perfect for memorable occasions. Let me show you the options.",
-        "I'll help you plan the perfect meeting or event at our hotel."
+        "Our sophisticated event spaces accommodate everything from intimate meetings to grand celebrations, with professional planning services and premium catering.",
+        hasHistory ? "Building on your previous event interests, I'll suggest venues that align with your style and requirements." : "Whether business or celebration, our flexible spaces and expert team ensure your event exceeds expectations."
       ],
       memory_command: [
-        "I'll help you manage your conversation history and preferences.",
-        "Let me assist you with your memory settings."
+        `I currently remember ${this.memory.totalInteractions} interactions and have learned your preferences across ${userPrefs.frequentRequests.length} service areas.`,
+        "I can help you manage our conversation history, export your preferences, or reset my memory if you prefer a fresh start."
       ],
       general_inquiry: [
-        "I'm here to assist you with anything you need during your stay.",
-        "How can I make your experience at Braira Al Olaya exceptional today?"
+        hasHistory ? `I'm here to assist with anything you need! Based on our conversations, I know you're interested in ${userPrefs.frequentRequests.slice(0,2).join(' and ')} services.` : "I'm here to make your Braira Al Olaya experience exceptional, learning your preferences to provide increasingly personalized assistance.",
+        userName ? `How can I help you today, ${userName}? I'm equipped with hotel knowledge and memory of your preferences to serve you better.` : "Welcome! I'm your intelligent concierge - ask me anything about our hotel, services, or bookings."
       ]
     };
     
