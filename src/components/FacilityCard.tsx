@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { ImageGallery, type GalleryImage } from './ImageGallery';
 import { useI18n } from '@/lib/i18n';
+import { BOOKING_URL } from '@/lib/config';
 
 interface FacilityCardProps {
   facility: {
@@ -45,6 +46,21 @@ interface FacilityCardProps {
 export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections }: FacilityCardProps) {
   const { t } = useI18n();
 
+  // Fallback booking handler: calls parent handler if provided, otherwise opens BOOKING_URL.
+  const handleBookNow = (id?: string) => {
+    try {
+      if (onBookNow) {
+        onBookNow(id || facility.id);
+        return;
+      }
+    } catch (err) {
+      // if parent handler throws, fall back to booking URL
+    }
+    if (typeof window !== 'undefined' && BOOKING_URL) {
+      window.open(BOOKING_URL, '_blank', 'noopener');
+    }
+  };
+
   const getTypeColor = () => {
     const colors = {
       dining: 'bg-orange-500',
@@ -52,7 +68,7 @@ export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections 
       fitness: 'bg-blue-500',
       business: 'bg-purple-500',
       recreation: 'bg-pink-500'
-    };
+    } as Record<string, string>;
     return colors[facility.type] || 'bg-gray-500';
   };
 
@@ -62,7 +78,7 @@ export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections 
       busy: { color: 'bg-yellow-500', text: 'Busy' },
       closed: { color: 'bg-red-500', text: 'Closed' },
       by_appointment: { color: 'bg-blue-500', text: 'By Appointment' }
-    };
+    } as Record<string, { color: string; text: string }>;
     return status[facility.availability] || { color: 'bg-gray-500', text: 'Unknown' };
   };
 
@@ -220,7 +236,7 @@ export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections 
             <>
               <Button 
                 className="flex-1 bg-primary hover:bg-primary-glow"
-                onClick={() => onBookNow?.(facility.id)}
+                onClick={() => handleBookNow(facility.id)}
                 disabled={facility.availability === 'closed'}
               >
                 <Calendar className="h-4 w-4 mr-2" />
@@ -240,7 +256,7 @@ export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections 
             <>
               <Button 
                 className="flex-1 bg-primary hover:bg-primary-glow"
-                onClick={() => onBookNow?.(facility.id)}
+                onClick={() => handleBookNow(facility.id)}
                 disabled={facility.availability === 'closed'}
               >
                 <Calendar className="h-4 w-4 mr-2" />
@@ -260,7 +276,7 @@ export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections 
             <>
               <Button 
                 className="flex-1 bg-primary hover:bg-primary-glow"
-                onClick={() => onBookNow?.(facility.id)}
+                onClick={() => handleBookNow(facility.id)}
                 disabled={facility.availability === 'closed'}
               >
                 <Calendar className="h-4 w-4 mr-2" />
@@ -281,7 +297,7 @@ export function FacilityCard({ facility, onBookNow, onViewMenu, onGetDirections 
             <>
               <Button 
                 className="flex-1 bg-primary hover:bg-primary-glow"
-                onClick={() => onBookNow?.(facility.id)}
+                onClick={() => handleBookNow(facility.id)}
               >
                 <Calendar className="h-4 w-4 mr-2" />
                 Reserve Space
