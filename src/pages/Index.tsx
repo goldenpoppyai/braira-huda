@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Star, Users, MapPin, Clock, Wifi, Car, Utensils, Dumbbell } from 'lucide-react';
 import { Layout } from '@/components/Layout';
-import AdvancedConcierge from '@/components/AdvancedConcierge';
+import Concierge from '@/components/Concierge';
 import { I18nProvider, useI18n } from '@/lib/i18n';
 import heroImage from '@/assets/braira-hero.jpg';
 import { BOOKING_URL } from '@/lib/config';
@@ -55,7 +55,7 @@ function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               size="lg"
-              className="bg-gold-gradient hover:bg-primary-glow ...e font-semibold px-8 py-4 text-lg gold-shadow transition-luxury"
+              className="bg-gold-gradient hover:bg-primary-glow font-semibold px-8 py-4 text-lg gold-shadow transition-luxury"
               onClick={() => window.open(BOOKING_URL, '_blank', 'noopener')}
             >
               {t('hero_cta_primary')}
@@ -74,7 +74,10 @@ function HomePage() {
               {t('concierge_prompt')} — "{t('concierge_example')}"
             </p>
             <div className="mt-4">
-              <Button className="bg-accent hover:bg-accent-glow text-accent-foreground" onClick={() => window.dispatchEvent(new Event('open-huda-concierge'))}>
+              <Button 
+                className="bg-accent hover:bg-accent-glow text-accent-foreground" 
+                onClick={() => window.dispatchEvent(new Event('open-huda-concierge'))}
+              >
                 Start Conversation
               </Button>
             </div>
@@ -100,7 +103,7 @@ function HomePage() {
       {/* Other sections (Welcome, Rooms, Facilities etc.) would follow here -- unchanged */}
 
       {/* AI Concierge Widget */}
-      <AdvancedConcierge />
+      <Concierge />
     </Layout>
   );
 }
