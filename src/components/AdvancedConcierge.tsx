@@ -31,7 +31,7 @@ import {
   ChevronUp
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
-import { intelligentEngine, type ConversationEntry, type AgentAction, type PredictiveResponse, type IntentAnalysis } from '@/lib/intelligentResponseEngine';
+import { intelligentEngine, type ConversationEntry, type AgentAction, type PredictiveResponse, type UserIntent } from '@/lib/intelligentResponseEngine';
 
 interface Message {
   id: string;
@@ -216,9 +216,9 @@ export default function AdvancedConcierge() {
       
       let welcomeMessage = '';
       if (preferences.name) {
-        welcomeMessage = `${timeGreeting}, ${preferences.name}! Great to see you again. How can I assist you today?`;
+        welcomeMessage = `${timeGreeting}, ${preferences.name}! Great to see you again. I remember your preferences and I'm here to provide personalized assistance.`;
       } else {
-        welcomeMessage = `${timeGreeting}! I'm Huda, your intelligent AI concierge. I learn from our conversations to provide personalized assistance.`;
+        welcomeMessage = `${timeGreeting}! I'm Huda, your intelligent AI concierge. I learn from our conversations and adapt to provide you with personalized, efficient service.`;
       }
       
       setMessages([{
@@ -487,14 +487,14 @@ export default function AdvancedConcierge() {
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 p-3">
+          <ScrollArea className="flex-1 p-4">
             <div className="space-y-4">
               {messages.map((message) => (
                 <div key={message.id} className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] rounded-xl p-3 ${
+                  <div className={`max-w-[75%] rounded-2xl p-4 ${
                     message.isUser 
                       ? 'bg-primary text-primary-foreground' 
-                      : 'bg-muted'
+                      : 'bg-muted text-muted-foreground'
                   }`}>
                     <p className="text-sm">{message.content}</p>
                     
@@ -537,7 +537,7 @@ export default function AdvancedConcierge() {
               
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-muted rounded-xl p-3 max-w-[80%]">
+                  <div className="bg-muted text-muted-foreground rounded-2xl p-4 max-w-[75%]">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-primary rounded-full animate-bounce delay-100"></div>
