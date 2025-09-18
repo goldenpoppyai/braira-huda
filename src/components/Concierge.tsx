@@ -1,225 +1,192 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { BOOKING_URL } from "@/lib/config";
-import {
-  MessageCircle,
-  Send,
-  Bot,
-  User,
-  Loader2,
-  Calendar,
-  MapPin,
-  Star,
-} from "lucide-react";
+import { MessageCircle, Send, Bot, User, Loader2, Calendar, MapPin, Star, X } from "lucide-react";
+import { conversationFlow } from "@/lib/conversationFlow";
+import { useI18n } from "@/lib/i18n";
 
-// Types
-interface Message {
+/**
+ * Concierge - consolidated, client-only demo mode
+ * - Uses conversationFlow.processMessage(...) for deterministic local responses
+ * - Exposes global event 'open-huda-concierge' to open the widget
+ * - Provides a minimized floating button when closed
+ * - Uses browser speechSynthesis as a TTS fallback (no external API needed)
+ */
+
+type Message = {
+  id: string;
   role: "user" | "assistant" | "system";
   content: string;
-  sentiment?: "positive" | "neutral" | "negative";
-}
+  timestamp: string;
+};
 
-export function Concierge() {
+export default function Concierge() {
+  const { t } = useI18n();
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
+      id: "m-0",
       role: "assistant",
       content:
-        "Hello 👋 I'm your Braira Olaya AI Concierge. How may I assist you today? (e.g., room booking, dining, spa, directions)",
-    },
+        "Hello 👋 I'm your Braira Olaya AI Concierge. I can help with room bookings, dining, spa, meetings and more. How can I help you today?",
+      timestamp: new Date().toISOString()
+    }
   ]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
-  // Auto-scroll
   useEffect(() => {
+    const handler = () => setIsOpen(true);
+    window.addEventListener("open-huda-concierge", handler);
+    return () => window.removeEventListener("open-huda-concierge", handler);
+  }, []);
+
+  useEffect(() => {
+    // Auto-scroll to bottom when messages change
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, isOpen]);
 
-  // Simple sentiment analysis
-  const analyzeSentiment = (text: string): "positive" | "neutral" | "negative" => {
-    const lower = text.toLowerCase();
-    if (/[!|😊|😁|great|thanks|perfect|love]/.test(lower)) return "positive";
-    if (/[angry|bad|terrible|disappointed|😡|👎]/.test(lower)) return "negative";
-    return "neutral";
+  const speak = (text: string) => {
+    try {
+      if (typeof window === "undefined") return;
+      const synth = (window as any).speechSynthesis;
+      if (synth && typeof synth.speak === "function") {
+        const ut = new SpeechSynthesisUtterance(text);
+        ut.lang = "en-US";
+        synth.cancel();
+        synth.speak(ut);
+      }
+    } catch (e) {
+      // speech not available; ignore
+    }
   };
 
-  // Predictive hinting (basic intent detection)
-  const detectIntent = (text: string) => {
-    const lower = text.toLowerCase();
-    if (lower.includes("book") || lower.includes("reserve")) {
-      return {
-        suggestion: `Would you like me to take you to our booking page?`,
-        action: () => window.open(BOOKING_URL, "_blank", "noopener"),
-      };
-    }
-    if (lower.includes("spa")) {
-      return { suggestion: "We have a wonderful spa — would you like details on treatments?" };
-    }
-    if (lower.includes("restaurant") || lower.includes("dining")) {
-      return { suggestion: "Would you like to see our restaurant menu or reserve a table?" };
-    }
-    if (lower.includes("where") || lower.includes("location") || lower.includes("map")) {
-      return {
-        suggestion: "I can show you directions to Braira Olaya.",
-        action: () =>
-          window.open(
-            "https://www.google.com/maps?q=Braira+Olaya+Hotel,+Olaya+St,+Riyadh",
-            "_blank",
-            "noopener"
-          ),
-      };
-    }
-    return null;
-  };
-
-  // Handle message send
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-
+  const sendMessage = async (raw: string) => {
+    if (!raw || raw.trim() === "") return;
     const userMessage: Message = {
+      id: `u-${Date.now()}`,
       role: "user",
-      content: input,
-      sentiment: analyzeSentiment(input),
+      content: raw,
+      timestamp: new Date().toISOString()
     };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
-      // Detect predictive intent
-      const intent = detectIntent(userMessage.content);
+      // Use the local conversationFlow engine (client-only)
+      const aiText = conversationFlow.processMessage(raw);
 
-      // Call AI backend (uses /api/ai/route under /src/pages/api)
-      const res = await fetch("/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [
-            ...messages,
-            { role: "user", content: userMessage.content },
-          ],
-        }),
-      });
+      const assistantMessage: Message = {
+        id: `a-${Date.now() + 1}`,
+        role: "assistant",
+        content: aiText,
+        timestamp: new Date().toISOString()
+      };
 
-      let aiText = "";
-      if (res.ok) {
-        const data = await res.json();
-        aiText = data.reply || "I'm here to assist you.";
-      } else {
-        aiText =
-          "I couldn't reach the server right now. But you can still book directly at our booking page.";
-      }
-
-      // Append AI response
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: aiText },
-        ...(intent
-          ? [
-              {
-                role: "assistant",
-                content: intent.suggestion,
-              } as Message,
-            ]
-          : []),
-      ]);
-
-      // If intent has immediate action, call it
-      if (intent?.action) {
-        intent.action();
-      }
+      setMessages((prev) => [...prev, assistantMessage]);
+      // TTS fallback
+      speak(aiText);
     } catch (err) {
+      const fallback = "Sorry — I'm having trouble right now. Please try again or visit our booking page.";
       setMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content:
-            "Something went wrong while connecting. Please try again or use our booking page.",
-        },
+        { id: `err-${Date.now()}`, role: "assistant", content: fallback, timestamp: new Date().toISOString() }
       ]);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  return (
-    <Card className="fixed bottom-4 right-4 w-96 shadow-2xl border border-border rounded-2xl overflow-hidden flex flex-col z-50">
-      {/* Header */}
-      <div className="flex items-center justify-between bg-primary text-white px-4 py-3">
-        <div className="flex items-center space-x-2">
-          <Bot className="h-5 w-5" />
-          <h3 className="font-semibold">Braira Concierge</h3>
-        </div>
-        <Star className="h-4 w-4 text-yellow-300" />
-      </div>
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      sendMessage(input);
+    }
+  };
 
-      {/* Chat Area */}
-      <ScrollArea className="flex-1 p-4 h-96" ref={scrollRef}>
-        <div className="space-y-4">
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`flex ${
-                msg.role === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
-              <div
-                className={`px-3 py-2 rounded-lg max-w-[80%] text-sm ${
-                  msg.role === "user"
-                    ? "bg-primary text-white"
-                    : "bg-muted text-foreground"
-                }`}
-              >
-                {msg.content}
-                {msg.role === "user" && msg.sentiment && (
-                  <span
-                    className={`ml-2 text-xs ${
-                      msg.sentiment === "positive"
-                        ? "text-green-400"
-                        : msg.sentiment === "negative"
-                        ? "text-red-400"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    ({msg.sentiment})
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-          {loading && (
-            <div className="flex items-center text-muted-foreground text-sm">
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              Concierge is typing...
-            </div>
-          )}
-        </div>
-      </ScrollArea>
-
-      {/* Input */}
-      <div className="flex items-center p-3 border-t border-border">
-        <Input
-          className="flex-1"
-          placeholder="Type your message..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        />
+  // If closed, show minimized button
+  if (!isOpen) {
+    return (
+      <div className="fixed bottom-6 right-6 z-50">
         <Button
-          size="icon"
-          onClick={sendMessage}
-          disabled={loading || !input.trim()}
-          className="ml-2"
+          data-huda-open="true"
+          onClick={() => setIsOpen(true)}
+          className="h-16 w-16 rounded-full p-0 flex items-center justify-center bg-accent text-white shadow-lg"
+          aria-label="Open concierge"
         >
-          <Send className="h-4 w-4" />
+          <MessageCircle className="h-6 w-6" />
         </Button>
       </div>
-    </Card>
+    );
+  }
+
+  // Main open UI
+  return (
+    <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-2rem)]">
+      <Card className="elegant-shadow bg-card/95 backdrop-blur-sm border-accent/20">
+        <CardHeader className="p-3 border-b">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Bot className="h-5 w-5 text-accent" />
+              <div>
+                <CardTitle className="text-sm font-semibold">Braira Al Olaya Concierge</CardTitle>
+                <div className="text-xs text-muted-foreground">AI assistant — demo mode (client-only)</div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="sm" onClick={() => window.open(BOOKING_URL, "_blank", "noopener")}>
+                Book
+              </Button>
+              <Button variant="ghost" size="sm" onClick={() => setIsOpen(false)} aria-label="Close concierge">
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent className="p-0">
+          <div ref={scrollRef} className="max-h-64 overflow-y-auto p-3 space-y-3">
+            {messages.map((m) => (
+              <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                <div
+                  className={`max-w-[80%] px-3 py-2 rounded-md ${m.role === "user" ? "bg-primary text-white" : "bg-white/10 text-white"
+                    }`}
+                >
+                  <div className="text-sm whitespace-pre-wrap">{m.content}</div>
+                  <div className="text-xs text-white/60 mt-1">{new Date(m.timestamp).toLocaleTimeString()}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="p-3 border-t">
+            <div className="flex items-center space-x-2">
+              <Input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask me about rooms, dining, or services..."
+                aria-label="Concierge input"
+              />
+              <Button
+                className="bg-accent"
+                onClick={() => sendMessage(input)}
+                aria-label="Send message"
+                disabled={isLoading}
+              >
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
