@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { BOOKING_URL } from '@/lib/config';
 import { 
   Bed, 
   Bath, 
@@ -13,15 +14,13 @@ import {
   Utensils,
   Shield,
   Wind,
-  Tv,
   MapPin,
-  Star,
   Users,
+  Star,
   Calendar,
-  CreditCard,
-  Phone
+  Phone,
+  CreditCard
 } from 'lucide-react';
-import { ImageGallery, type GalleryImage } from './ImageGallery';
 import { useI18n } from '@/lib/i18n';
 
 interface RoomCardProps {
@@ -30,16 +29,17 @@ interface RoomCardProps {
     category: string;
     size: string;
     capacity: string;
-    price: string;
-    originalPrice?: string;
-    discount?: string;
-    images: GalleryImage[];
-    features: string[];
-    amenities: string[];
     description: string;
-    availability: 'available' | 'limited' | 'unavailable';
+    amenities: string[];
     rating?: number;
     reviewCount?: number;
+    price: {
+      from: string;
+      currency: string;
+      discount?: string;
+    };
+    availability?: 'available' | 'unavailable';
+    discount?: string;
   };
   onBookNow?: (roomId: string) => void;
   onViewDetails?: (roomId: string) => void;
@@ -49,63 +49,47 @@ export function RoomCard({ room, onBookNow, onViewDetails }: RoomCardProps) {
   const { t } = useI18n();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const getAmenityIcon = (amenity: string) => {
-    const iconMap: Record<string, React.ReactNode> = {
-      wifi: <Wifi className="h-4 w-4" />,
-      parking: <Car className="h-4 w-4" />,
-      coffee: <Coffee className="h-4 w-4" />,
-      bathroom: <Bath className="h-4 w-4" />,
-      tv: <Tv className="h-4 w-4" />,
-      ac: <Wind className="h-4 w-4" />,
-      safe: <Shield className="h-4 w-4" />,
-      bedding: <Bed className="h-4 w-4" />
-    };
-    return iconMap[amenity] || <Star className="h-4 w-4" />;
-  };
-
-  const getAvailabilityColor = () => {
-    switch (room.availability) {
-      case 'available': return 'bg-green-500';
-      case 'limited': return 'bg-yellow-500';
-      case 'unavailable': return 'bg-red-500';
-      default: return 'bg-gray-500';
+  // Fallback booking handler: calls provided handler if available, otherwise opens BOOKING_URL
+  const handleBookNow = (id?: string) => {
+    try {
+      if (onBookNow) {
+        onBookNow(id || room.id);
+        return;
+      }
+    } catch (err) {
+      // ignore and fallback
+    }
+    if (typeof window !== 'undefined' && BOOKING_URL) {
+      window.open(BOOKING_URL, '_blank', 'noopener');
     }
   };
 
-  const getAvailabilityText = () => {
-    switch (room.availability) {
-      case 'available': return 'Available';
-      case 'limited': return 'Limited Availability';
-      case 'unavailable': return 'Fully Booked';
-      default: return 'Unknown';
+  function getAmenityIcon(amenity: string) {
+    switch (amenity) {
+      case 'bed': return <Bed className="h-4 w-4" />;
+      case 'bath': return <Bath className="h-4 w-4" />;
+      case 'wifi': return <Wifi className="h-4 w-4" />;
+      case 'parking': return <Car className="h-4 w-4" />;
+      case 'coffee': return <Coffee className="h-4 w-4" />;
+      case 'gym': return <Dumbbell className="h-4 w-4" />;
+      case 'sea_view': return <Waves className="h-4 w-4" />;
+      case 'dining': return <Utensils className="h-4 w-4" />;
+      case 'safety': return <Shield className="h-4 w-4" />;
+      case 'breeze': return <Wind className="h-4 w-4" />;
+      default: return <Bed className="h-4 w-4" />;
     }
-  };
+  }
 
   return (
-    <Card className="overflow-hidden elegant-shadow hover:luxury-shadow transition-luxury group">
+    <Card className="overflow-hidden elegant-shadow transition-luxury group">
       <div className="relative">
-        {/* Image Gallery */}
-        <div className="h-64">
-          <ImageGallery 
-            images={room.images}
-            showThumbnails={false}
-            autoPlay={true}
-            autoPlayInterval={4000}
-            className="h-full"
-          />
-        </div>
-
-        {/* Availability Badge */}
-        <div className="absolute top-4 left-4">
-          <Badge className={`${getAvailabilityColor()} text-white border-none`}>
-            <div className="w-2 h-2 rounded-full bg-white mr-2" />
-            {getAvailabilityText()}
-          </Badge>
+        <div className="h-40 bg-gradient-to-br from-gray-100 to-gray-200">
+          {/* placeholder hero image per room */}
         </div>
 
         {/* Discount Badge */}
         {room.discount && (
-          <div className="absolute top-4 right-4">
+          <div className="absolute top-4 left-4">
             <Badge className="bg-red-500 text-white border-none">
               {room.discount} OFF
             </Badge>
@@ -154,16 +138,16 @@ export function RoomCard({ room, onBookNow, onViewDetails }: RoomCardProps) {
             )}
           </div>
 
+          {/* Pricing */}
           <div className="text-right">
-            <div className="flex items-center space-x-2">
-              {room.originalPrice && (
-                <span className="text-sm text-muted-foreground line-through">
-                  {room.originalPrice}
-                </span>
-              )}
-              <span className="text-2xl font-bold text-primary">{room.price}</span>
+            <div className="text-lg font-bold text-primary">
+              {room.price.from} {room.price.currency}
             </div>
-            <div className="text-xs text-muted-foreground">{t('per_night')}</div>
+            {room.price.discount && (
+              <div className="text-xs text-muted-foreground">
+                {room.price.discount} off
+              </div>
+            )}
           </div>
         </div>
 
@@ -177,7 +161,7 @@ export function RoomCard({ room, onBookNow, onViewDetails }: RoomCardProps) {
           <h4 className="font-medium mb-2 text-sm">{t('room_amenities')}</h4>
           <div className="grid grid-cols-4 gap-2">
             {room.amenities.slice(0, 8).map((amenity) => (
-              <div 
+              <div
                 key={amenity}
                 className="flex items-center justify-center p-2 bg-muted rounded-md"
                 title={t(amenity as any)}
@@ -186,47 +170,25 @@ export function RoomCard({ room, onBookNow, onViewDetails }: RoomCardProps) {
               </div>
             ))}
           </div>
-          {room.amenities.length > 8 && (
-            <button 
-              className="text-xs text-primary mt-2 hover:underline"
-              onClick={() => setIsExpanded(!isExpanded)}
-            >
-              {isExpanded ? 'Show less' : `+${room.amenities.length - 8} more amenities`}
-            </button>
-          )}
         </div>
 
-        {/* Expanded Amenities */}
-        {isExpanded && (
-          <div className="mb-4 p-3 bg-muted/30 rounded-md">
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              {room.amenities.slice(8).map((amenity) => (
-                <div key={amenity} className="flex items-center space-x-2">
-                  {getAmenityIcon(amenity)}
-                  <span>{t(amenity as any)}</span>
-                </div>
-              ))}
+        {/* Expand */}
+        <div className="mb-4">
+          <Button size="sm" variant="ghost" onClick={() => setIsExpanded(!isExpanded)}>
+            {isExpanded ? t('show_less') : t('show_more')}
+          </Button>
+          {isExpanded && (
+            <div className="mt-3 text-sm text-muted-foreground">
+              {/* extended info */}
             </div>
-          </div>
-        )}
-
-        {/* Features */}
-        <div className="mb-6">
-          <h4 className="font-medium mb-2 text-sm">Key Features</h4>
-          <div className="flex flex-wrap gap-1">
-            {room.features.map((feature) => (
-              <Badge key={feature} variant="outline" className="text-xs">
-                {t(feature as any)}
-              </Badge>
-            ))}
-          </div>
+          )}
         </div>
 
         {/* Action Buttons */}
         <div className="flex space-x-3">
           <Button 
             className="flex-1 bg-primary hover:bg-primary-glow"
-            onClick={() => onBookNow?.(room.id)}
+            onClick={() => handleBookNow(room.id)}
             disabled={room.availability === 'unavailable'}
           >
             <Calendar className="h-4 w-4 mr-2" />
