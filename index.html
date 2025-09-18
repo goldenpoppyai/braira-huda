@@ -4,80 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Braira Al Olaya Riyadh - Luxury Hotel in the Heart of Riyadh</title>
-    <meta name="description" content="Experience luxury at Braira Al Olaya Riyadh. World-class amenities, exceptional service, and prime location in Al Olaya district. Book your stay today." />
-    <meta name="keywords" content="luxury hotel riyadh, braira al olaya, riyadh accommodation, 5-star hotel, al olaya district" />
+
+    <!-- Primary meta -->
+    <meta name="description" content="Experience luxury at Braira Al Olaya Riyadh — elegant rooms, refined dining, relaxing spa, and exceptional service in the Al Olaya district. Book your stay today." />
+    <meta name="keywords" content="Braira Al Olaya, luxury hotel Riyadh, 5-star hotel, Al Olaya, Braira hotels" />
     <meta name="author" content="Braira Al Olaya Riyadh" />
-    <link rel="canonical" href="https://brairaalolaya.com/" />
+    <link rel="canonical" href="/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://brairaalolaya.com/" />
+    <meta property="og:url" content="/" />
     <meta property="og:title" content="Braira Al Olaya Riyadh - Luxury Hotel in the Heart of Riyadh" />
-    <meta property="og:description" content="Experience luxury at Braira Al Olaya Riyadh. World-class amenities, exceptional service, and prime location in Al Olaya district." />
-    <meta property="og:image" content="https://brairaalolaya.com/braira-hero.jpg" />
+    <meta property="og:description" content="Experience luxury at Braira Al Olaya Riyadh — elegant rooms, refined dining, relaxing spa, and exceptional service in the Al Olaya district." />
+    <!-- note: hero image is served from /braira-hero.jpg in public/ -->
+    <meta property="og:image" content="/braira-hero.jpg" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Braira Al Olaya Riyadh" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://brairaalolaya.com/" />
-    <meta name="twitter:title" content="Braira Al Olaya Riyadh - Luxury Hotel" />
-    <meta name="twitter:description" content="Experience luxury in the heart of Riyadh with world-class amenities and exceptional service." />
-    <meta name="twitter:image" content="https://brairaalolaya.com/braira-hero.jpg" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:title" content="Braira Al Olaya Riyadh - Luxury Hotel in the Heart of Riyadh" />
+    <meta name="twitter:description" content="Elegant rooms, refined dining, relaxing spa, and exceptional service — Braira Al Olaya Riyadh." />
+    <meta name="twitter:image" content="/braira-hero.jpg" />
 
-    <!-- Hreflang for multilingual SEO -->
-    <link rel="alternate" hreflang="en" href="https://brairaalolaya.com/en" />
-    <link rel="alternate" hreflang="ar" href="https://brairaalolaya.com/ar" />
-    <link rel="alternate" hreflang="ms" href="https://brairaalolaya.com/ms" />
-    <link rel="alternate" hreflang="fr" href="https://brairaalolaya.com/fr" />
-    <link rel="alternate" hreflang="id" href="https://brairaalolaya.com/id" />
-    <link rel="alternate" hreflang="hi" href="https://brairaalolaya.com/hi" />
-    <link rel="alternate" hreflang="x-default" href="https://brairaalolaya.com/" />
+    <!-- Favicon and icons -->
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#ffffff" />
 
-    <!-- Structured Data for Hotel -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Hotel",
-      "name": "Braira Al Olaya Riyadh",
-      "description": "Luxury hotel in Riyadh offering world-class amenities, exceptional service, and prime location in Al Olaya district.",
-      "url": "https://brairaalolaya.com",
-      "telephone": "+966114567890",
-      "email": "info@brairaalolaya.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Al Olaya District",
-        "addressLocality": "Riyadh",
-        "addressCountry": "SA"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "24.7136",
-        "longitude": "46.6753"
-      },
-      "starRating": {
-        "@type": "Rating",
-        "ratingValue": "5"
-      },
-      "amenityFeature": [
-        {"@type": "LocationFeatureSpecification", "name": "Free WiFi"},
-        {"@type": "LocationFeatureSpecification", "name": "Fitness Center"},
-        {"@type": "LocationFeatureSpecification", "name": "Restaurant"},
-        {"@type": "LocationFeatureSpecification", "name": "24-hour Concierge"},
-        {"@type": "LocationFeatureSpecification", "name": "Spa"},
-        {"@type": "LocationFeatureSpecification", "name": "Business Center"}
-      ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "reviewCount": "850"
-      }
-    }
-    </script>
+    <!-- Important: Vite entry -->
+    <script type="module" src="/src/main.tsx"></script>
   </head>
 
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Structured data & JSON-LD (preserved) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Hotel",
+        "name": "Braira Al Olaya Riyadh",
+        "description": "Braira Al Olaya Riyadh offers luxury rooms, dining, spa, and top-tier service in the Al Olaya district.",
+        "url": "/",
+        "image": [ "/braira-hero.jpg" ]
+      }
+    </script>
   </body>
 </html>
