@@ -4,6 +4,27 @@
 
 **URL**: https://lovable.dev/projects/65421c3e-49b8-4b00-a2da-2ab7e43bcfba
 
+## Local demo & notes
+
+1. Copy the hero image so demo `index.html` can reference it:
+   mkdir -p public
+   cp src/assets/braira-hero.jpg public/braira-hero.jpg
+
+2. Disabled Next API:
+   The project contains a Next.js-style API at `src/pages/api/ai.ts`. For Vite demo preview this file has been renamed to `src/pages/api/ai.disabled.ts`. If you deploy with Next/Vercel, restore it to its original path.
+
+3. Mock AI for demo:
+   The demo-friendly helper `src/lib/mockAi.ts` returns deterministic responses for UI testing without server-side keys.
+
+4. Run dev:
+   npm install
+   npm run dev
+
+5. Build and preview:
+   npm run build
+   npm run preview
+
+
 ## How can I edit this code?
 
 There are several ways of editing your application.
