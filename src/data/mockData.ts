@@ -84,7 +84,7 @@ export const brairaMockImages = {
     }
   ],
 
-  // Facilities (sample)
+  // Facilities
   facilities: [
     {
       id: 'pool-1',
@@ -163,7 +163,7 @@ export const brairaMockImages = {
   ]
 };
 
-// Mock room data with real images
+// Mock room & facility data with real images
 export const mockRooms = [
   {
     id: 'deluxe-room',
