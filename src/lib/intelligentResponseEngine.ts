@@ -10,6 +10,9 @@ export interface UserIntent {
   context: string[];
 }
 
+// For backward compatibility
+export type { UserIntent as IntentAnalysis };
+
 export interface ConversationMemory {
   userId: string;
   conversations: ConversationEntry[];
@@ -90,8 +93,9 @@ export interface PredictiveResponse {
   response: string;
   confidence: number;
   suggestedActions: AgentAction[];
-  contextualInfo: string[];
-  followUpQuestions: string[];
+  contextualInfo?: string[];
+  followUpQuestions?: string[];
+  predictiveSuggestions?: string[];
 }
 
 export class IntelligentResponseEngine {

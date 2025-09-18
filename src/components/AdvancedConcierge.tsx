@@ -31,7 +31,7 @@ import {
   ChevronUp
 } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
-import { intelligentEngine, type ConversationEntry, type AgentAction, type PredictiveResponse } from '@/lib/intelligentResponseEngine';
+import { intelligentEngine, type ConversationEntry, type AgentAction, type PredictiveResponse, type IntentAnalysis } from '@/lib/intelligentResponseEngine';
 
 interface Message {
   id: string;
@@ -51,7 +51,7 @@ interface SuggestionChip {
 }
 
 export default function AdvancedConcierge() {
-  console.log('AdvancedConcierge component mounting...');
+  
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -212,9 +212,14 @@ export default function AdvancedConcierge() {
   const initializeWelcomeMessage = useCallback(() => {
     if (messages.length === 0) {
       const preferences = intelligentEngine.getUserPreferences();
-      const welcomeMessage = preferences.name 
-        ? `Welcome back, ${preferences.name}! How can I help you today?`
-        : 'Hello! I\'m Huda, your AI concierge. I learn from our conversations to provide better assistance. How can I help you today?';
+      const timeGreeting = getTimeBasedGreeting();
+      
+      let welcomeMessage = '';
+      if (preferences.name) {
+        welcomeMessage = `${timeGreeting}, ${preferences.name}! Great to see you again. How can I assist you today?`;
+      } else {
+        welcomeMessage = `${timeGreeting}! I'm Huda, your intelligent AI concierge. I learn from our conversations to provide personalized assistance.`;
+      }
       
       setMessages([{
         id: 'welcome',
@@ -224,6 +229,13 @@ export default function AdvancedConcierge() {
       }]);
     }
   }, [messages.length]);
+
+  const getTimeBasedGreeting = (): string => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
 
   const executeAction = useCallback(async (action: AgentAction) => {
     setActiveActions(prev => [...prev, { ...action, executed: true }]);
@@ -294,10 +306,17 @@ export default function AdvancedConcierge() {
       // Generate intelligent response
       const response: PredictiveResponse = await intelligentEngine.generateResponse(userMessage, intent);
       
+      // Enhanced response with 2-sentence limit
+      let finalResponse = response.response;
+      const sentences = finalResponse.split(/[.!?]+/).filter(s => s.trim());
+      if (sentences.length > 2) {
+        finalResponse = sentences.slice(0, 2).join('. ') + '.';
+      }
+      
       // Create agent message
       const agentMsg: Message = {
         id: `agent_${Date.now()}`,
-        content: response.response,
+        content: finalResponse,
         isUser: false,
         timestamp: new Date(),
         intent: intent.primary,
@@ -310,7 +329,7 @@ export default function AdvancedConcierge() {
       // Store conversation
       intelligentEngine.storeConversation(
         userMessage,
-        response.response,
+        finalResponse,
         intent,
         response.suggestedActions
       );
@@ -378,7 +397,7 @@ export default function AdvancedConcierge() {
   }, [messages]);
 
   return (
-    <Card className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${isExpanded ? 'w-96 h-[600px]' : 'w-80 h-16'} shadow-xl border-primary/20`}>
+    <Card className={`fixed bottom-4 right-4 z-50 transition-all duration-300 ${isExpanded ? 'w-96 h-[650px]' : 'w-80 h-16'} shadow-2xl border-primary/20 backdrop-blur-sm`}>
       {/* Header */}
       <div 
         className="flex items-center justify-between p-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-t-lg cursor-pointer"
@@ -468,14 +487,14 @@ export default function AdvancedConcierge() {
           </div>
 
           {/* Messages */}
-          <ScrollArea className="flex-1 p-3">
-            <div className="space-y-3">
+          <ScrollArea className="flex-1 p-3 pb-0">
+            <div className="space-y-3 pb-4">
               {messages.map((message) => (
                 <div key={message.id} className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[80%] rounded-lg p-3 ${
+                  <div className={`max-w-[85%] rounded-xl p-3 ${
                     message.isUser 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'bg-muted'
+                      ? 'bg-primary text-primary-foreground ml-4' 
+                      : 'bg-muted mr-4'
                   }`}>
                     <p className="text-sm">{message.content}</p>
                     
@@ -534,7 +553,7 @@ export default function AdvancedConcierge() {
           <Separator />
 
           {/* Input Area */}
-          <div className="p-3">
+          <div className="p-3 pt-2 bg-background">
             <div className="flex items-center gap-2">
               <div className="flex-1 relative">
                 <Input
